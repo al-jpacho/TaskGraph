@@ -1,0 +1,6 @@
+Task A (due Friday) -> Task B -> Task C
+Task D (due Saturday)
+Task E (due Sunday)
+Task F
+Task G -> Task H
+Task I -> Task J
