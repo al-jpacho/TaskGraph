@@ -8,7 +8,7 @@ def generate_task_graph(tasks: list[dict]):
     Args:
         tasks (list[dict]): Each dictionary must contain 'task' and 'depends_on'.
     """
-    G = nx.Graph()
+    G = nx.DiGraph()
 
     for task in tasks:
         G.add_node(task["task"])
