@@ -1,5 +1,6 @@
 import networkx as nx 
 import matplotlib.pyplot as plt
+import streamlit as st
 
 def generate_task_graph(tasks: list[dict]):
     """
@@ -19,6 +20,6 @@ def generate_task_graph(tasks: list[dict]):
 
     pos = nx.spring_layout(G)
 
-    nx.draw(G, pos, with_labels=True, arrows=True, node_size=1500, node_color='green', font_size=10)
-    plt.title("Task Dependency Graph")
-    plt.show()
+    fig, ax = plt.subplots()
+    nx.draw(G, pos, with_labels=True, arrows=True, node_size=1000, node_color='green', font_size=8, ax=ax)
+    st.pyplot(fig) 
