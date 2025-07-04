@@ -22,3 +22,34 @@ def parse_dependencies(line: str):
         pairs.append((parent, child))
 
     return pairs
+
+
+def parse_input_data(text: str) -> list[dict]:
+    """
+    Parses multiline text into a list of task dependencies.
+
+    Each item in the list represents a task and its dependencies
+    Args:
+        text (str): Multiline string of task definitions.
+
+    Returns:
+        list[dict]: List of task dictionaries with 'task' and
+        what it 'depends_on'.
+    """
+
+    tasks = {}
+
+    for line in text.strip().splitlines():
+        links = parse_dependencies(line)
+
+        for parent, child in links: 
+            if parent not in tasks:
+                tasks[parent] = {"task": parent, "depends_on": []}
+
+            if child:
+                if child not in tasks:
+                    tasks[child] = {"task": child, "depends_on": []}
+                    tasks[child]["depends_on"].append(parent)
+
+
+    return list(tasks.values())
