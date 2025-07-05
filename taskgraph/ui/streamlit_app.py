@@ -10,18 +10,23 @@ DATA_PATH = "data/"
 os.makedirs(DATA_PATH, exist_ok=True)
 
 st.set_page_config(page_title="TaskGraph", layout="wide")
-
 st.title("TaskGraph")
 
+# Session setup
 if "tasks" not in st.session_state:
     st.session_state["tasks"] = []
 
+# --- Input section ---
 user_input = st.text_area(
     "Enter tasks (use -> for dependencies)",
     height=200,
     placeholder="Example:\nTask A -> Task B -> Task C\nTask D",
 )
 
+st.markdown("---")
+st.subheader("Actions")
+
+# Button section
 if st.button("Generate Graph") and user_input.strip():
     st.session_state["tasks"] = parse_input_data(user_input)
 
@@ -39,6 +44,9 @@ if st.button("Load Graph"):
     except FileNotFoundError:
         st.warning("No saved graph files found.")
 
+st.markdown("---")
+
+# --- Output section ---
 if st.session_state["tasks"]:
     st.subheader("Parsed Task Data")
     st.json(st.session_state["tasks"])
