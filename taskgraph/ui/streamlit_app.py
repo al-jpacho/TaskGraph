@@ -2,6 +2,7 @@ import streamlit as st
 from taskgraph.core import parse_input_data
 from taskgraph.ui.visualise import generate_task_graph
 
+DATA_PATH = "data/tasks.json"
 
 st.set_page_config(page_title="TaskGraph", layout="wide")
 
