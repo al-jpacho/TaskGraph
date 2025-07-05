@@ -18,8 +18,8 @@ def generate_task_graph(tasks: list[dict]):
         for dep in task["depends_on"]:
             G.add_edge(dep, task["task"])
 
-    pos = nx.spring_layout(G)
+    pos = nx.spring_layout(G, k=0.5)
 
-    fig, ax = plt.subplots()
-    nx.draw(G, pos, with_labels=True, arrows=True, node_size=1000, node_color='green', font_size=8, ax=ax)
+    fig, ax = plt.subplots(figsize=(8,3))
+    nx.draw(G, pos, with_labels=True, arrows=True, node_size=400, node_color='green', font_size=5, ax=ax)
     st.pyplot(fig) 
