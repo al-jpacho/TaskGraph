@@ -28,6 +28,33 @@ def parse_dependencies(line: str) -> List[Tuple[str, Optional[str]]]:
     return pairs
 
 
+def extract_status(task_str: str) -> Tuple[str, str]:
+    """
+    Extracts task name and status. 
+
+    Supported status tags: 
+        [todo], [inProgress], [done]
+    
+    Defaults to None if there is no status.
+
+    Args:
+        task_str (str): Task name and possibly status tag.
+
+    Returns:
+        Tuple[str, str]: (Task name, Status)
+    """
+    task_str = task_str.strip()
+
+    if task_str.endswith("[todo]"):
+        return task_str[:-6].strip(), "todo"
+    elif task_str.endswith("[inProgress]"):
+        return task_str[:-10].strip(), "inProgress"
+    elif task_str.endswith("[done]"):
+        return task_str[:-6].strip(), "done"
+    else: 
+        return task_str, None
+
+
 def parse_input_data(text: str) -> list[dict]:
     """
     Parses multiline text into a list of task dependencies.
