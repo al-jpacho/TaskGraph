@@ -49,7 +49,7 @@ def extract_status(task_str: str) -> Tuple[str, Optional[str]]:
     if task_str.endswith("[todo]"):
         return task_str[:-6].strip(), "todo"
     elif task_str.endswith("[inProgress]"):
-        return task_str[:-10].strip(), "inProgress"
+        return task_str[:-12].strip(), "inProgress"
     elif task_str.endswith("[done]"):
         return task_str[:-6].strip(), "done"
     else:
