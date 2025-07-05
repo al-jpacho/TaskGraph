@@ -56,6 +56,12 @@ if st.session_state["tasks"]:
     st.subheader("Parsed Task Data")
     st.json(st.session_state["tasks"])
 
+    status_filter = st.multiselect(
+        "Show tasks with status:", 
+        options=["todo", "inProgress", "done"],
+        default=["todo", "inProgress", "done"]
+    )
+
     st.subheader("Graph View")
     generate_task_graph(st.session_state["tasks"])
 else:
