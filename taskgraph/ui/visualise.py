@@ -26,7 +26,7 @@ def generate_task_graph(tasks: list[dict]):
         status = task["status"]
 
         G.add_node(task_name)
-        node_colors.append(STATUS_COLORS[status])
+        node_colors.append(STATUS_COLORS.get(status, "grey"))
     
     for task in tasks:
         for dep in task["depends_on"]:
