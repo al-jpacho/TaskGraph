@@ -58,8 +58,8 @@ if st.session_state["tasks"]:
 
     status_filter = st.multiselect(
         "Show tasks with status:", 
-        options=["todo", "inProgress", "done"],
-        default=["todo", "inProgress", "done"]
+        options=["todo", "inProgress", "done", None],
+        default=["todo", "inProgress", "done", None]
     )
 
     filtered_tasks = [
