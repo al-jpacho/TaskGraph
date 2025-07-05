@@ -1,5 +1,6 @@
 import networkx as nx 
 import matplotlib.pyplot as plt
+from matplotlib.patches import Patch
 import streamlit as st
 
 STATUS_COLORS = {
@@ -15,7 +16,7 @@ def generate_task_graph(tasks: list[dict]):
 
     Args:
         tasks (list[dict]): Each dictionary must contain 'task' and 'depends_on'.
-    """
+    """ 
     G = nx.DiGraph()
 
     node_colors = []
@@ -34,5 +35,13 @@ def generate_task_graph(tasks: list[dict]):
     pos = nx.spring_layout(G, k=0.5)
 
     fig, ax = plt.subplots(figsize=(8,3))
+
+    legend_elements = [
+        Patch(color=color, label=status)
+        for status, color in STATUS_COLORS.items()
+    ]
+
+    ax.legend(handles=legend_elements, loc="lower left", fontsize="x-small", frameon=False)
+
     nx.draw(G, pos, with_labels=True, arrows=True, node_size=400, node_color=node_colors, font_size=5, ax=ax)
     st.pyplot(fig) 
