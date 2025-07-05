@@ -2,6 +2,13 @@ import networkx as nx
 import matplotlib.pyplot as plt
 import streamlit as st
 
+STATUS_COLOURS = {
+    "todo": "lightgrey",
+    "inProgress": "lightblue",
+    "done": "limegreen",
+    None: "grey"
+}
+
 def generate_task_graph(tasks: list[dict]):
     """
     Generates a visual task dependency graph from a list of task dictionaries.
