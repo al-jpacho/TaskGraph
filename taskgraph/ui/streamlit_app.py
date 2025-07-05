@@ -24,6 +24,12 @@ user_input = st.text_area(
 if st.button("Generate Graph") and user_input.strip():
     st.session_state["tasks"] = parse_input_data(user_input)
 
+if st.button("Save Graph"): 
+    if st.session_state["tasks"]:
+        save_tasks(st.session_state["tasks"], DATA_PATH)
+    else:
+        st.warning("There is nothing to save — generate a graph first.")
+
 if st.session_state["tasks"]:
     st.subheader("Parsed Task Data")
     st.json(st.session_state["tasks"])
