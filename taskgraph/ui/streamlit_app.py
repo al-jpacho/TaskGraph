@@ -6,7 +6,7 @@ from taskgraph.core import parse_input_data
 from taskgraph.io import load_tasks, save_tasks
 from taskgraph.ui.visualise import generate_task_graph
 
-DATA_PATH = "data/"
+DATA_PATH = "taskgraph/data/"
 os.makedirs(DATA_PATH, exist_ok=True)
 
 st.set_page_config(page_title="TaskGraph", layout="wide")
