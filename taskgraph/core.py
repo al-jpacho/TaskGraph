@@ -1,14 +1,18 @@
-def parse_dependencies(line: str):
+from typing import List, Tuple, Optional
+
+def parse_dependencies(line: str) -> List[Tuple[str, Optional[str]]]:
     """
     Parse a task dependency chain from a single line of input.
     Splits by '->' to extract parent, child pairs.
     Single task return (parent, None) tuples.
 
     Args:
-        line (str): ` _description_
+        line (str): Represents chain of tasks, using '->' to 
+            separate tasks.
 
     Returns:
-        _type_: _description_
+        List[Tuple[str, Optional[str]]]: A list of (parent, child) pairs.
+        If a task has no dependency, its child will be None.
     """
     tokens = [t.strip() for t in line.split("->")]
 
