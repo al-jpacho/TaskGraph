@@ -62,7 +62,12 @@ if st.session_state["tasks"]:
         default=["todo", "inProgress", "done"]
     )
 
+    filtered_tasks = [
+        task for task in st.session_state["tasks"]
+        if task.get("status") in status_filter
+    ]
+
     st.subheader("Graph View")
-    generate_task_graph(st.session_state["tasks"])
+    generate_task_graph(filtered_tasks)
 else:
     st.info("No graph loaded yet. Enter tasks above or laod a saved graph.")
