@@ -22,10 +22,11 @@ user_input = st.text_area(
 )
 
 if st.button("Generate Graph") and user_input.strip():
-    tasks = parse_input_data(user_input)
+    st.session_state["tasks"] = parse_input_data(user_input)
 
+if st.session_state["tasks"]:
     st.subheader("Parsed Task Data")
-    st.json(tasks)
+    st.json(st.session_state["tasks"])
 
     st.subheader("Graph View")
-    generate_task_graph(tasks)
+    generate_task_graph(st.session_state["tasks"])
