@@ -28,6 +28,7 @@ if st.button("Generate Graph") and user_input.strip():
 if st.button("Save Graph"):
     if st.session_state["tasks"]:
         save_tasks(st.session_state["tasks"], DATA_PATH)
+        st.success("Graph saved sucessfully.")
     else:
         st.warning("There is nothing to save — generate a graph first.")
 
