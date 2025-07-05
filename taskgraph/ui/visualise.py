@@ -2,7 +2,7 @@ import networkx as nx
 import matplotlib.pyplot as plt
 import streamlit as st
 
-STATUS_COLOURS = {
+STATUS_COLORS = {
     "todo": "lightgrey",
     "inProgress": "lightblue",
     "done": "limegreen",
@@ -18,14 +18,14 @@ def generate_task_graph(tasks: list[dict]):
     """
     G = nx.DiGraph()
 
-    node_colours = []
+    node_colors = []
 
     for task in tasks:
         task_name = task["task"]
         status = task["status"]
 
         G.add_node(task_name)
-        node_colours.append(STATUS_COLOURS[status])
+        node_colors.append(STATUS_COLORS[status])
     
     for task in tasks:
         for dep in task["depends_on"]:
@@ -34,5 +34,5 @@ def generate_task_graph(tasks: list[dict]):
     pos = nx.spring_layout(G, k=0.5)
 
     fig, ax = plt.subplots(figsize=(8,3))
-    nx.draw(G, pos, with_labels=True, arrows=True, node_size=400, node_color=node_colours, font_size=5, ax=ax)
+    nx.draw(G, pos, with_labels=True, arrows=True, node_size=400, node_color=node_colors, font_size=5, ax=ax)
     st.pyplot(fig) 
