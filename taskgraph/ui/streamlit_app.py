@@ -58,3 +58,5 @@ if st.session_state["tasks"]:
 
     st.subheader("Graph View")
     generate_task_graph(st.session_state["tasks"])
+else:
+    st.info("No graph loaded yet. Enter tasks above or laod a saved graph.")
