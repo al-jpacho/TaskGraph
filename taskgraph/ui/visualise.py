@@ -21,6 +21,10 @@ def generate_task_graph(tasks: list[dict]):
 
     node_colors = []
 
+    task_names = {task["task"] for task in tasks}
+
+    print(task_names)
+
     for task in tasks:
         task_name = task["task"]
         status = task["status"]
@@ -30,7 +34,8 @@ def generate_task_graph(tasks: list[dict]):
     
     for task in tasks:
         for dep in task["depends_on"]:
-            G.add_edge(dep, task["task"])
+            if dep in task_names and task["task"] in task_names:
+                G.add_edge(dep, task["task"])
 
     pos = nx.spring_layout(G, k=0.5)
 
