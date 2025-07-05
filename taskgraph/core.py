@@ -28,7 +28,7 @@ def parse_dependencies(line: str) -> List[Tuple[str, Optional[str]]]:
     return pairs
 
 
-def extract_status(task_str: str) -> Tuple[str, str]:
+def extract_status(task_str: str) -> Tuple[str, Optional[str]]:
     """
     Extracts task name and status. 
 
