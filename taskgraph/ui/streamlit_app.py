@@ -56,7 +56,18 @@ if st.session_state["tasks"]:
     st.subheader("Parsed Task Data")
     st.json(st.session_state["tasks"])
 
+    status_filter = st.multiselect(
+        "Show tasks with status:", 
+        options=["todo", "inProgress", "done", None],
+        default=["todo", "inProgress", "done", None]
+    )
+
+    filtered_tasks = [
+        task for task in st.session_state["tasks"]
+        if task.get("status") in status_filter
+    ]
+
     st.subheader("Graph View")
-    generate_task_graph(st.session_state["tasks"])
+    generate_task_graph(filtered_tasks)
 else:
     st.info("No graph loaded yet. Enter tasks above or laod a saved graph.")
