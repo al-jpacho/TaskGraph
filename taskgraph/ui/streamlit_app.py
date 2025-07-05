@@ -26,23 +26,28 @@ user_input = st.text_area(
 st.markdown("---")
 st.subheader("Actions")
 
-# Button section
-if st.button("Generate Graph") and user_input.strip():
-    st.session_state["tasks"] = parse_input_data(user_input)
+# --- Button section ---
+col1, col2, col3 = st.columns(3)
 
-if st.button("Save Graph"):
-    if st.session_state["tasks"]:
-        save_tasks(st.session_state["tasks"], DATA_PATH)
-        st.success("Graph saved sucessfully.")
-    else:
-        st.warning("There is nothing to save — generate a graph first.")
+with col1:
+    if st.button("Generate Graph") and user_input.strip():
+        st.session_state["tasks"] = parse_input_data(user_input)
 
-if st.button("Load Graph"):
-    try:
-        st.session_state["tasks"] = load_tasks(DATA_PATH)
-        st.success("Latest saved graph loaded.")
-    except FileNotFoundError:
-        st.warning("No saved graph files found.")
+with col2:
+    if st.button("Save Graph"):
+        if st.session_state["tasks"]:
+            save_tasks(st.session_state["tasks"], DATA_PATH)
+            st.success("Graph saved sucessfully.")
+        else:
+            st.warning("There is nothing to save — generate a graph first.")
+
+with col3:
+    if st.button("Load Graph"):
+        try:
+            st.session_state["tasks"] = load_tasks(DATA_PATH)
+            st.success("Latest saved graph loaded.")
+        except FileNotFoundError:
+            st.warning("No saved graph files found.")
 
 st.markdown("---")
 
