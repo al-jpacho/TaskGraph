@@ -8,6 +8,9 @@ st.set_page_config(page_title="TaskGraph", layout="wide")
 
 st.title("TaskGraph")
 
+if "tasks" not in st.session_state:
+    st.session_state["tasks"] = []
+
 user_input = st.text_area(
     "Enter tasks (use -> for dependencies)", 
     height=200, 
