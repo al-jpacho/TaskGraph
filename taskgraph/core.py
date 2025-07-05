@@ -1,4 +1,5 @@
-from typing import List, Tuple, Optional
+from typing import List, Tuple, Optional, Dict
+
 
 def parse_dependencies(line: str) -> List[Tuple[str, Optional[str]]]:
     """
@@ -7,7 +8,7 @@ def parse_dependencies(line: str) -> List[Tuple[str, Optional[str]]]:
     Single task return (parent, None) tuples.
 
     Args:
-        line (str): Represents chain of tasks, using '->' to 
+        line (str): Represents chain of tasks, using '->' to
             separate tasks.
 
     Returns:
@@ -16,7 +17,7 @@ def parse_dependencies(line: str) -> List[Tuple[str, Optional[str]]]:
     """
     tokens = [t.strip() for t in line.split("->")]
 
-    if len(tokens) < 2: 
+    if len(tokens) < 2:
         return [(tokens[0], None)]
 
     pairs = []
@@ -30,11 +31,11 @@ def parse_dependencies(line: str) -> List[Tuple[str, Optional[str]]]:
 
 def extract_status(task_str: str) -> Tuple[str, Optional[str]]:
     """
-    Extracts task name and status. 
+    Extracts task name and status.
 
-    Supported status tags: 
+    Supported status tags:
         [todo], [inProgress], [done]
-    
+
     Defaults to None if there is no status.
 
     Args:
@@ -51,36 +52,57 @@ def extract_status(task_str: str) -> Tuple[str, Optional[str]]:
         return task_str[:-10].strip(), "inProgress"
     elif task_str.endswith("[done]"):
         return task_str[:-6].strip(), "done"
-    else: 
+    else:
         return task_str, None
 
 
-def parse_input_data(text: str) -> list[dict]:
+def parse_input_data(text: str) -> list[Dict[str, object]]:
     """
-    Parses multiline text into a list of task dependencies.
+    Parses multiline task input into a structured list of task dictionaries.
 
-    Each item in the list represents a task and its dependencies
+    Each line may define a task or a dependency chain using '->'.
+    Tasks can optionally include a status tag like [todo], [inProgress], or [done].
+
+    Example:
+        Task A [done] -> Task B [todo]
+        Task C
+
     Args:
         text (str): Multiline string of task definitions.
 
     Returns:
-        list[dict]: List of task dictionaries with 'task' and
-        what it 'depends_on'.
+        List[Dict[str, object]]: List of task dictionaries. Each has:
+            - 'task' (str): Task name
+            - 'depends_on' (List[str]): Parent task names
+            - 'status' (str): Task status ("todo", "done", etc.)
     """
 
     tasks = {}
 
     for line in text.strip().splitlines():
-        links = parse_dependencies(line)
+        pairs = parse_dependencies(line)
 
-        for parent, child in links: 
+        for parent_raw, child_raw in pairs:
+            parent, parent_status = extract_status(parent_raw)
+
             if parent not in tasks:
-                tasks[parent] = {"task": parent, "depends_on": []}
+                tasks[parent] = {
+                    "task": parent,
+                    "depends_on": [],
+                    "status": parent_status,
+                }
 
-            if child:
+            if child_raw is not None:
+                child, child_status = extract_status(child_raw)
+
                 if child not in tasks:
-                    tasks[child] = {"task": child, "depends_on": []}
-                    tasks[child]["depends_on"].append(parent)
+                    tasks[child] = {
+                        "task": child,
+                        "depends_on": [],
+                        "status": child_status,
+                    }
 
+                if parent not in tasks[child]["depends_on"]:
+                    tasks[child]["depends_on"].append(parent)
 
     return list(tasks.values())
