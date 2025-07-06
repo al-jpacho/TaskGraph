@@ -129,7 +129,7 @@ def assign_node_roles(tasks: List[Dict]) -> Dict[str, str]:
     Returns:
         Dict[str, str]: Role-node mapping.
     """
-    start_nodes = {task["task"] for task in tasks if not task["dpends_on"]}
+    start_nodes = {task["task"] for task in tasks if not task["depends_on"]}
     all_tasks = {task["task"] for task in tasks}
     all_deps = {dep for task in tasks for dep in task["depends_on"]} 
     end_nodes = all_tasks - all_deps
