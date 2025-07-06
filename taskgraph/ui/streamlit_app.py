@@ -68,6 +68,8 @@ if st.session_state["tasks"]:
     ]
 
     st.subheader("Graph View")
-    generate_task_graph(filtered_tasks)
+    fig = generate_task_graph(filtered_tasks)
+    st.pyplot(fig)
+
 else:
     st.info("No graph loaded yet. Enter tasks above or laod a saved graph.")
