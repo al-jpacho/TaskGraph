@@ -1,7 +1,8 @@
 import networkx as nx
 import matplotlib.pyplot as plt
 from matplotlib.patches import Patch
-import streamlit as st
+from typing import List, Dict
+from taskgraph.core import assign_node_roles
 
 STATUS_COLORS = {
     "todo": "lightgrey",
@@ -11,16 +12,19 @@ STATUS_COLORS = {
 }
 
 
-def generate_task_graph(tasks: list[dict]):
+
+def generate_task_graph(tasks: List[Dict]):
     """
-    Generates a visual task dependency graph from a list of task dictionaries.
+    Generates a visual task dependency graph from a List of task Dictionaries.
 
     Args:
-        tasks (list[dict]): Each dictionary must contain 'task' and 'depends_on'.
+        tasks (List[Dict]): Each Dictionary must contain 'task' and 'depends_on'.
     """
     G = nx.DiGraph()
 
     node_colors = []
+
+    node_roles = assign_node_roles(tasks)
 
     task_names = {task["task"] for task in tasks}
 
