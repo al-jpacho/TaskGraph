@@ -120,8 +120,8 @@ def assign_node_roles(tasks: List[Dict]) -> Dict[str, str]:
 
     Roles: 
         - 'start': Task with no dependencies.
-        - 'middle': Task with dependencies.
-        - 'end': All other tasks.
+        - 'end': Task with dependencies.
+        - 'middle': All other tasks.
 
     Args:
         tasks (List[Dict]): List of task dictionaries. 
