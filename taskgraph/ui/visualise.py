@@ -58,4 +58,4 @@ def generate_task_graph(tasks: list[dict]):
         font_size=5,
         ax=ax,
     )
-    st.pyplot(fig)
+    return fig
