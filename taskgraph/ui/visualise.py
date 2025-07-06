@@ -11,6 +11,12 @@ STATUS_COLORS = {
     None: "grey",
 }
 
+ROLE_SHPAES = {
+    "start": "s",
+    "end": "d",
+    "middle": "o"
+}
+
 
 
 def generate_task_graph(tasks: List[Dict]):
