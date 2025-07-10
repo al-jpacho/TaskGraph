@@ -1,7 +1,9 @@
 import os
+import io
 
 import streamlit as st
 
+from datetime import datetime
 from taskgraph.core import parse_input_data
 from taskgraph.io import load_tasks, save_tasks
 from taskgraph.ui.visualise import generate_task_graph
@@ -68,6 +70,21 @@ if st.session_state["tasks"]:
     ]
 
     st.subheader("Graph View")
-    generate_task_graph(filtered_tasks)
+    fig = generate_task_graph(filtered_tasks)
+    st.pyplot(fig)
+
+    # -- Export graph as PNG --
+    buffer = io.BytesIO()
+    fig.savefig(buffer, format="png")
+    buffer.seek(0)
+
+    timestamp = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
+    st.download_button(
+    label="Download Graph as PNG",
+    data=buffer,
+    file_name=f"taskgraph-{timestamp}.png",
+    mime="image/png"
+)
+
 else:
     st.info("No graph loaded yet. Enter tasks above or laod a saved graph.")
