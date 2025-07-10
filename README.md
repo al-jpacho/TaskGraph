@@ -4,7 +4,7 @@ TaskGraph is a lightweight productivity tool for visualising your tasks as a dep
 
 ---
 
-## What It Does (v1.0.2)
+## What It Does (v1.0.3)
 
 - Parse simple task inputs like:
   ```
@@ -20,10 +20,14 @@ TaskGraph is a lightweight productivity tool for visualising your tasks as a dep
 
 ## Features
 
-- DAG construction using `networkx`
-- Streamlit UI for task input and visualisation
-- Inline parsing of categories and statuses
-- JSON output for storing and reviewing structured task data
+- Create task dependency graphs using plain text input
+- Use `->` to link tasks with dependencies
+- Add task statuses with `[todo]`, `[inProgress]`, or `[done]`
+- Node shapes based on task roles (start/middle/end)
+- Node colours based on task status
+- Export and load saved graphs in timestamped JSON files
+- Visualise task networks in Streamlit
+- Filter tasks by status before visualising
 
 ---
 
@@ -74,6 +78,38 @@ Task A [todo] -> Task B [inProgress] -> Task C
 
 - `[]` indicates optional metadata (e.g., `[Category A]`, `[todo]`)
 - `->` indicates task dependency (Task A must be done before Task B)
+
+### Visual Output
+
+- Status determines node colour:
+  - `todo`: grey
+  - `inProgress`: blue
+  - `done`: green
+
+- Role determines node shape:
+  - `start`: square
+  - `middle`: circle
+  - `end`: diamond
+
+---
+
+## Running Unit Tests
+
+Unit tests are located in the `tests/` directory and cover both core logic and IO functionality.
+
+To run the tests:
+
+```bash
+pytest
+```
+
+Make sure you have the `pytest.ini` file in the root directory:
+
+```ini
+# pytest.ini
+[pytest]
+pythonpath = .
+```
 
 ---
 
