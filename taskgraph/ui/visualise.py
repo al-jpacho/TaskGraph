@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import networkx as nx
 from matplotlib.lines import Line2D
 from matplotlib.patches import Patch
+import numpy as np
 
 from taskgraph.core import assign_node_roles
 
@@ -37,9 +38,11 @@ def generate_task_graph(tasks: List[Dict]):
             if dep in task_names:
                 G.add_edge(dep, task["task"])
 
-    pos = nx.spring_layout(G, k=0.5)
+    # --- Position nodes using spring layout ---
+    k = 1.2 / np.sqrt(len(G.nodes()))  # Adjust k for better spacing
+    pos = nx.spring_layout(G, seed=42, k=k)
 
-    fig, ax = plt.subplots(figsize=(8, 3))
+    fig, ax = plt.subplots(figsize=(10, 6))
 
     # --- Draw nodes and edges based on roles --
 
